@@ -1,433 +1,603 @@
 <template>
-    <div class="mainconatainer">
+  <div class="mainconatainer">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-content">
+          <!-- Logo -->
+          <div class="logo">NEOTAILY</div>
 
+          <!-- Desktop Navigation -->
+          <div class="desktop-nav">
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#pricing" class="nav-link">Pricing</a>
+            <a href="#about" class="nav-link">About</a>
+            <button @click="opensiginPopup" class="btn sign-in">Sign In</button>
+         
+          </div>
 
+          <div class="mobile-menu-btn" @click="toggleMenu">
+            <span>{{ isMenuOpen ? "Close" : "Menu" }}</span>
+          </div>
+        </div>
 
-
-
-
-
-
-        <nav class="navbar">
-    <div class="container">
-      <div class="navbar-content">
-        <!-- Logo -->
-        <div class="logo">NEOTAILY</div>
-
-        <!-- Desktop Navigation -->
-        <div class="desktop-nav">
+        <!-- Mobile Navigation -->
+        <div v-if="isMenuOpen" class="mobile-nav">
           <a href="#features" class="nav-link">Features</a>
           <a href="#pricing" class="nav-link">Pricing</a>
           <a href="#about" class="nav-link">About</a>
-          <!-- <button class="btn sign-in">Sign In</button> -->
-          <button class="btn get-started">Get Started</button>
-        </div>
-
-        <!-- Mobile Menu Button -->
-        <div class="mobile-menu-btn" @click="toggleMenu">
-            <span>{{ isMenuOpen ? 'Close' : 'Menu' }}</span>
+          <!-- <button class="btn sign-in">Sign In</button>
+        <button class="btn get-started">Get Started</button> -->
         </div>
       </div>
+    </nav>
 
-      <!-- Mobile Navigation -->
-      <div v-if="isMenuOpen" class="mobile-nav">
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#pricing" class="nav-link">Pricing</a>
-        <a href="#about" class="nav-link">About</a>
-        <button class="btn sign-in">Sign In</button>
-        <button class="btn get-started">Get Started</button>
-      </div>
-    </div>
-  </nav>
-
-
-
-  <section class="hero">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="content">
-        <h1 class="headingg">Transform Your Business with Our Software</h1>
-        <p class="subheading">
-          Powerful, flexible, and easy to use. Our software helps you streamline your operations and boost productivity.
-        </p>
-        <div class="buttons">
-          <button class="btn primary" @click="handleGetStarted">
-            Get Started <span class="arrow">→</span>
-          </button>
-          <button class="btn outline">Watch Demo</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-
-      <section id="features" class="section-features">
-        <div class="container">
-          <div class="text-center mb-16">
-            <h2 class="title">Powerful Features</h2>
-            <p class="description">
-              Everything you need to streamline your workflow and boost productivity
-            </p>
+    <section class="hero">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="content">
+          <h1 class="headingg"> <span id="typewriter"></span></h1>
+          <p class="subheading">
+            Powerful, flexible, and easy to use. Our software helps you
+            streamline your operations and boost productivity.
+          </p>
+          <div class="buttons">
+            <button class="btn primary" @click="showpopup()">
+              Get Started <span class="arrow"></span>
+            </button>
+            <button class="btn outline">Watch Demo</button>
           </div>
-          <div class="features-grid">
-            <div
-              v-for="(feature, index) in features"
-              :key="index"
-              class="feature-card"
-            >
-              <div class="icon">
-                <component :is="feature.icon" class="icon-size" />
-              </div>
-              <h3 class="feature-title">{{ feature.title }}</h3>
-              <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section-features">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2 class="title">Powerful Features</h2>
+          <p class="description">
+            Everything you need to streamline your workflow and boost
+            productivity
+          </p>
+        </div>
+        <div class="features-grid">
+          <div
+            v-for="(feature, index) in features"
+            :key="index"
+            class="feature-card"
+          >
+            <div class="icon">
+              <component :is="feature.icon" class="icon-size" />
             </div>
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <p class="feature-description">{{ feature.description }}</p>
           </div>
         </div>
-      </section>
-  
-      <section class="section-steps">
-        <div class="container">
-          <div class="text-center mb-16">
-            <h2 class="title">How It Works</h2>
-            <p class="description">
-              Get started in minutes with our simple four-step process
-            </p>
+      </div>
+    </section>
+
+    <section class="section-steps">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2 class="title">How It Works</h2>
+          <p class="description">
+            Get started in minutes with our simple four-step process
+          </p>
+        </div>
+        <div class="steps-grid">
+          <div v-for="(step, index) in steps" :key="index" class="step-card">
+            <div class="step-content">
+              <span class="step-number">{{ step.number }}</span>
+              <h3 class="step-title">{{ step.title }}</h3>
+              <p class="step-description">{{ step.description }}</p>
+            </div>
+            <ArrowRight v-if="index < steps.length - 1" class="step-arrow" />
           </div>
-          <div class="steps-grid">
-            <div v-for="(step, index) in steps" :key="index" class="step-card">
-              <div class="step-content">
-                <span class="step-number">{{ step.number }}</span>
-                <h3 class="step-title">{{ step.title }}</h3>
-                <p class="step-description">{{ step.description }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section-pricing">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2 class="title">Simple, Transparent Pricing</h2>
+          <p class="description">
+            Choose the perfect plan for your business needs
+          </p>
+        </div>
+        <div class="pricing-grid">
+          <div
+            v-for="(plan, index) in plans"
+            :key="index"
+            class="pricing-card"
+            :class="{
+              'popular-plan': plan.popular,
+              'regular-plan': !plan.popular,
+            }"
+          >
+            <span v-if="plan.popular" class="popular-tag"> Most Popular </span>
+            <h3 class="plan-name">{{ plan.name }}</h3>
+            <div class="plan-price">
+              <span class="price">{{ plan.price }}</span>
+              <span v-if="plan.price !== 'Custom'" class="per-year">/Year</span>
+            </div>
+            <p class="plan-description">{{ plan.description }}</p>
+            <ul class="plan-features">
+              <li
+                v-for="(feature, featureIndex) in plan.features"
+                :key="featureIndex"
+                class="feature-item"
+              >
+                <Check class="check-icon" />
+                <span>{{ feature }}</span>
+              </li>
+            </ul>
+            <button class="get-started-button">Get Started</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials-section">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2 class="heading">What Our Clients Say</h2>
+          <p class="subheading">
+            Don't just take our word for it - hear from some of our satisfied
+            customers
+          </p>
+        </div>
+        <div class="testimonials-grid">
+          <div
+            v-for="(testimonial, index) in testimonials"
+            :key="index"
+            class="testimonial-card"
+          >
+            <div class="testimonial-header">
+              <img
+                :src="testimonial.image"
+                :alt="testimonial.name"
+                class="testimonial-image"
+              />
+              <div>
+                <h4 class="testimonial-name">{{ testimonial.name }}</h4>
+                <p class="testimonial-role">{{ testimonial.role }}</p>
               </div>
-              <ArrowRight
-                v-if="index < steps.length - 1"
-                class="step-arrow"
+            </div>
+            <div class="testimonial-rating">
+              <span v-for="n in testimonial.rating" :key="n" class="star"
+                >&#9733;</span
+              >
+            </div>
+            <p class="testimonial-content">{{ testimonial.content }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div v-if="open" class="dialog-overlay">
+      <div class="dialog-content">
+        <div class="dialog-header">
+          <h2 class="dialog-title">
+            {{
+              step === 1 ? "Enter Your Phone Number" : "Complete Your Profile"
+            }}
+          </h2>
+        </div>
+
+        <div class="form-content">
+          <div v-if="step === 1">
+            <div class="form-group">
+              <div class="select-group">
+                <select v-model="formData.countryCode" class="select">
+                  <option value="">Code</option>
+                  <option value="+1">+1 (US)</option>
+                  <option value="+44">+44 (UK)</option>
+                  <option value="+91">+91 (IN)</option>
+                  <!-- Add more country codes as needed -->
+                </select>
+              </div>
+              <input
+                type="tel"
+                placeholder="Phone number"
+                v-model="formData.phoneNumber"
+                class="input"
               />
             </div>
-          </div>
-        </div>
-      </section>
-  
-      <section id="pricing" class="section-pricing">
-        <div class="container">
-          <div class="text-center mb-16">
-            <h2 class="title">Simple, Transparent Pricing</h2>
-            <p class="description">
-              Choose the perfect plan for your business needs
-            </p>
-          </div>
-          <div class="pricing-grid">
-            <div
-              v-for="(plan, index) in plans"
-              :key="index"
-              class="pricing-card"
-              :class="{
-                'popular-plan': plan.popular,
-                'regular-plan': !plan.popular
-              }"
+            <button
+              class="button"
+              @click="handleNext"
+              :disabled="!formData.countryCode || !formData.phoneNumber"
             >
-              <span v-if="plan.popular" class="popular-tag">
-                Most Popular
-              </span>
-              <h3 class="plan-name">{{ plan.name }}</h3>
-              <div class="plan-price">
-                <span class="price">{{ plan.price }}</span>
-                <span v-if="plan.price !== 'Custom'" class="per-year">/Year</span>
-              </div>
-              <p class="plan-description">{{ plan.description }}</p>
-              <ul class="plan-features">
-                <li v-for="(feature, featureIndex) in plan.features" :key="featureIndex" class="feature-item">
-                  <Check class="check-icon" />
-                  <span>{{ feature }}</span>
-                </li>
-              </ul>
-              <button class="get-started-button">
-                Get Started
-              </button>
-            </div>
+              Next
+            </button>
           </div>
-        </div>
-      </section>
 
-
-      <section class="testimonials-section">
-    <div class="container">
-      <div class="text-center mb-16">
-        <h2 class="heading">What Our Clients Say</h2>
-        <p class="subheading">
-          Don't just take our word for it - hear from some of our satisfied customers
-        </p>
-      </div>
-      <div class="testimonials-grid">
-        <div
-          v-for="(testimonial, index) in testimonials"
-          :key="index"
-          class="testimonial-card"
-        >
-          <div class="testimonial-header">
-            <img
-              :src="testimonial.image"
-              :alt="testimonial.name"
-              class="testimonial-image"
-            />
-            <div>
-              <h4 class="testimonial-name">{{ testimonial.name }}</h4>
-              <p class="testimonial-role">{{ testimonial.role }}</p>
+          <div v-else>
+            <div class="form-group">
+              <input
+                type="text"
+                placeholder="Your name"
+                v-model="formData.name"
+                class="input"
+              />
             </div>
+            <button
+              class="button"
+              @click="handleSubmit"
+              :disabled="!formData.name"
+            >
+              Complete Sign Up
+            </button>
           </div>
-          <div class="testimonial-rating">
-            <span
-              v-for="n in testimonial.rating"
-              :key="n"
-              class="star"
-            >&#9733;</span>
-          </div>
-          <p class="testimonial-content">{{ testimonial.content }}</p>
         </div>
       </div>
     </div>
-  </section>
 
-
-
-
-
-
-  <div v-if="open" class="dialog-overlay">
-    <div class="dialog-content">
-      <div class="dialog-header">
-        <h2 class="dialog-title">{{ step === 1 ? 'Enter Your Phone Number' : 'Complete Your Profile' }}</h2>
-      </div>
-
-      <div class="form-content">
-        <div v-if="step === 1">
-          <div class="form-group">
-            <div class="select-group">
-              <select v-model="formData.countryCode" class="select">
-                <option value="">Code</option>
-                <option value="+1">+1 (US)</option>
-                <option value="+44">+44 (UK)</option>
-                <option value="+91">+91 (IN)</option>
-                <!-- Add more country codes as needed -->
-              </select>
+    <footer class="footer">
+      <div class="container">
+        <div class="grid">
+          <!-- Company Info -->
+          <div>
+            <h3 class="logo">NEOTAILY</h3>
+            <p class="description">
+              Transforming businesses with powerful software solutions.
+            </p>
+            <div class="social-icons">
+              <a href="#" class="icon">Facebook</a>
+              <a href="#" class="icon">Twitter</a>
+              <a href="#" class="icon">Instagram</a>
+              <a href="#" class="icon">LinkedIn</a>
+              <a href="#" class="icon">GitHub</a>
             </div>
-            <input
-              type="tel"
-              placeholder="Phone number"
-              v-model="formData.phoneNumber"
-              class="input"
-            />
           </div>
-          <button
-            class="button"
-            @click="handleNext"
-            :disabled="!formData.countryCode || !formData.phoneNumber"
-          >
-            Next
-          </button>
+
+          <!-- Quick Links -->
+          <div>
+            <h4 class="heading">Quick Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Features</a></li>
+              <li><a href="#">Pricing</a></li>
+            </ul>
+          </div>
+
+          <!-- Support -->
+          <div>
+            <h4 class="heading">Support</h4>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">API Reference</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <!-- Legal -->
+          <div>
+            <h4 class="heading">Legal</h4>
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Cookie Policy</a></li>
+              <li><a href="#">Security</a></li>
+            </ul>
+          </div>
         </div>
 
-        <div v-else>
-          <div class="form-group">
+        <div class="footer-bottom">
+          <p>&copy; {{ currentYear }} NEOTAILY. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- signin pop  -->
+
+    <div v-if="SigninPopUp" class="popup-overlay">
+      <div class="popup-content">
+        <button @click="closeSignupPopup" class="close-btn">&times;</button>
+        <h2>Sign In</h2>
+
+        <div class="form-container">
+       
+
+          <div class="input-group">
+            <div class="phone-group">
+              <div class="country-code">
+                <label>Code</label>
+                <select v-model="countryCode">
+                  <option value="+91">+91</option>
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                  <option value="+86">+86</option>
+                </select>
+              </div>
+
+              <div class="phone-input">
+                <label>Phone Number</label>
+                <input
+                  type="tel"
+                  v-model="phoneNumber"
+                  placeholder="Enter phone number"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button @click="handleSignIn" class="signin-btn">Sign In</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div v-if="isVisible" class="popup-overlay">
+      <div class="popup-content">
+        <button @click="closePopup" class="close-btn">&times;</button>
+        <h2>Sign Up</h2>
+
+        <div class="form-container">
+          <div class="input-group">
+            <label>Full Name</label>
             <input
               type="text"
-              placeholder="Your name"
-              v-model="formData.name"
-              class="input"
+              v-model="fullName"
+              placeholder="Enter your name"
             />
           </div>
-          <button
-            class="button"
-            @click="handleSubmit"
-            :disabled="!formData.name"
-          >
-            Complete Sign Up
-          </button>
+
+          <div class="input-group">
+            <div class="phone-group">
+              <div class="country-code">
+                <label>Code</label>
+                <select v-model="countryCode">
+                  <option value="+91">+91</option>
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                  <option value="+86">+86</option>
+                </select>
+              </div>
+
+              <div class="phone-input">
+                <label>Phone Number</label>
+                <input
+                  type="tel"
+                  v-model="phoneNumber"
+                  placeholder="Enter phone number"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button @click="handleSignIn" class="signin-btn">Sign Up</button>
         </div>
+      </div>
+    </div>
+
+    <div v-if="isVisibleoffer" class="popup-overlay">
+    <div class="popup-content">
+      <button @click="closePopupoffer" class="close-btn">&times;</button>
+      
+      <div class="promo-content">
+        <h2>Special Offer! 🎉</h2>
+        <div class="offer-badges">
+          <span class="badge">Free Consultation</span>
+          <span class="badge highlight">30% OFF</span>
+        </div>
+        
+        <div class="features">
+          <div class="feature-item">
+            <span class="feature-icon">💼</span>
+            <p>Professional Business Solutions</p>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🚀</span>
+            <p>Boost Your Growth</p>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">💡</span>
+            <p>Smart Automation Tools</p>
+          </div>
+        </div>
+
+        <p class="limited-offer">
+          🕒 Limited time offer! Contact us now.
+        </p>
       </div>
     </div>
   </div>
 
+  </div>
+</template>
+
+<script setup>
+
+import {
+  Zap,
+  Shield,
+  Code2,
+  Settings2,
+  ArrowRight,
+  Check,
+} from "lucide-vue-next";
+const isVisible = ref(false);
+const fullName = ref("");
+const countryCode = ref("+91");
+const phoneNumber = ref("");
+const isVisibleoffer = ref(false)
+
+
+const handleSignIn = () => {
+  console.log("Signing in:", {
+    fullName: fullName.value,
+    phone: countryCode.value + phoneNumber.value,
+  });
+};
+const showpopup = () => {
+  isVisible.value = true;
+};
+
+const closePopup = () => {
+  isVisible.value = false;
+};
+const closePopupoffer= ()=>{
+  isVisibleoffer.value =false
+}
+const features = [
+  {
+    icon: Zap,
+    title: "Lightning Fast",
+    description:
+      "Experience blazing-fast performance with our optimized software architecture.",
+  },
+  {
+    icon: Shield,
+    title: "Secure by Design",
+    description:
+      "Enterprise-grade security with end-to-end encryption and compliance features.",
+  },
+  {
+    icon: Code2,
+    title: "Developer Friendly",
+    description:
+      "Extensive API documentation and SDKs for seamless integration.",
+  },
+  {
+    icon: Settings2,
+    title: "Customizable",
+    description:
+      "Tailor the software to your needs with powerful customization options.",
+  },
+];
+
+const steps = [
+  {
+    number: "01",
+    title: "Sign Up",
+    description:
+      "Create your account in minutes with our simple onboarding process.",
+  },
+  {
+    number: "02",
+    title: "Configure",
+    description:
+      "Customize the software settings according to your business needs.",
+  },
+  {
+    number: "03",
+    title: "Integrate",
+    description:
+      "Connect with your existing tools and start importing your data.",
+  },
+  {
+    number: "04",
+    title: "Launch",
+    description:
+      "Go live with your new streamlined workflow and boost productivity.",
+  },
+];
+
+const plans = [
+  {
+    name: "Starter",
+    price: "\u20B9 400",
+    description: "Perfect for small teams",
+    features: [
+      "Up to 5 team members",
+      "Basic analytics",
+      "24/7 support",
+      "API access",
+    ],
+  },
+  {
+    name: "Pro",
+    price: "\u20B9 700",
+    description: "Best for growing businesses",
+    features: [
+      "Unlimited team members",
+      "Advanced analytics",
+      "Priority support",
+      "Custom integrations",
+      "Advanced security",
+    ],
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    price: "Custom",
+    description: "For large organizations",
+    features: [
+      "Unlimited everything",
+      "Custom development",
+      "Dedicated support",
+      "SLA guarantee",
+      "On-premise option",
+    ],
+  },
+];
+
+const testimonials = [
+  {
+    name: "Sarah Johnson",
+    role: "CEO at TechCorp",
+    content:
+      "This software has completely transformed how we operate. The productivity gains have been remarkable.",
+    rating: 5,
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+  },
+  {
+    name: "Michael Chen",
+    role: "CTO at StartupX",
+    content:
+      "The best decision we made was switching to this platform. The customization options are endless.",
+    rating: 5,
+    image:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+  },
+  {
+    name: "Emily Davis",
+    role: "Operations Director",
+    content:
+      "Outstanding support team and feature-rich platform. It's everything we needed and more.",
+    rating: 5,
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+  },
+  {
+    name: "Sarah Johnson",
+    role: "CEO at TechCorp",
+    content:
+      "This software has completely transformed how we operate. The productivity gains have been remarkable.",
+    rating: 4,
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+  },
+];
 
 
 
-
-
-      <footer class="footer">
-    <div class="container">
-      <div class="grid">
-        <!-- Company Info -->
-        <div>
-          <h3 class="logo">NEOTAILY</h3>
-          <p class="description">Transforming businesses with powerful software solutions.</p>
-          <div class="social-icons">
-            <a href="#" class="icon">Facebook</a>
-            <a href="#" class="icon">Twitter</a>
-            <a href="#" class="icon">Instagram</a>
-            <a href="#" class="icon">LinkedIn</a>
-            <a href="#" class="icon">GitHub</a>
-          </div>
-        </div>
-
-        <!-- Quick Links -->
-        <div>
-          <h4 class="heading">Quick Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Features</a></li>
-            <li><a href="#">Pricing</a></li>
-          </ul>
-        </div>
-
-        <!-- Support -->
-        <div>
-          <h4 class="heading">Support</h4>
-          <ul>
-            <li><a href="#">Help Center</a></li>
-            <li><a href="#">Documentation</a></li>
-            <li><a href="#">API Reference</a></li>
-            <li><a href="#">Contact Us</a></li>
-          </ul>
-        </div>
-
-        <!-- Legal -->
-        <div>
-          <h4 class="heading">Legal</h4>
-          <ul>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Cookie Policy</a></li>
-            <li><a href="#">Security</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; {{ currentYear }} NEOTAILY. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-    </div>
-  </template>
-  
-  
-  <script setup>
-  import { Zap, Shield, Code2, Settings2, ArrowRight, Check, } from "lucide-vue-next";
-  
-  const features = [
-    {
-      icon: Zap,
-      title: "Lightning Fast",
-      description: "Experience blazing-fast performance with our optimized software architecture."
-    },
-    {
-      icon: Shield,
-      title: "Secure by Design",
-      description: "Enterprise-grade security with end-to-end encryption and compliance features."
-    },
-    {
-      icon: Code2,
-      title: "Developer Friendly",
-      description: "Extensive API documentation and SDKs for seamless integration."
-    },
-    {
-      icon: Settings2,
-      title: "Customizable",
-      description: "Tailor the software to your needs with powerful customization options."
-    }
-  ];
-  
-  const steps = [
-    { number: "01", title: "Sign Up", description: "Create your account in minutes with our simple onboarding process." },
-    { number: "02", title: "Configure", description: "Customize the software settings according to your business needs." },
-    { number: "03", title: "Integrate", description: "Connect with your existing tools and start importing your data." },
-    { number: "04", title: "Launch", description: "Go live with your new streamlined workflow and boost productivity." }
-  ];
-  
-  const plans = [
-    {
-      name: "Starter",
-      price: "\u20B9 400",
-      description: "Perfect for small teams",
-      features: ["Up to 5 team members", "Basic analytics", "24/7 support", "API access"]
-    },
-    {
-      name: "Pro",
-      price: "\u20B9 700",
-      description: "Best for growing businesses",
-      features: [
-        "Unlimited team members",
-        "Advanced analytics",
-        "Priority support",
-        "Custom integrations",
-        "Advanced security"
-      ],
-      popular: true
-    },
-    {
-      name: "Enterprise",
-      price: "Custom",
-      description: "For large organizations",
-      features: [
-        "Unlimited everything",
-        "Custom development",
-        "Dedicated support",
-        "SLA guarantee",
-        "On-premise option"
-      ]
-    }
-  ];
-  
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      role: "CEO at TechCorp",
-      content: "This software has completely transformed how we operate. The productivity gains have been remarkable.",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
-    },
-    {
-      name: "Michael Chen",
-      role: "CTO at StartupX",
-      content: "The best decision we made was switching to this platform. The customization options are endless.",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
-    },
-    {
-      name: "Emily Davis",
-      role: "Operations Director",
-      content: "Outstanding support team and feature-rich platform. It's everything we needed and more.",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop"
-    },
-    {
-      name: "Sarah Johnson",
-      role: "CEO at TechCorp",
-      content: "This software has completely transformed how we operate. The productivity gains have been remarkable.",
-      rating: 4,
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
-    },
-  ];
-
-
-  import { ref } from 'vue';
-  const isMenuOpen = ref(false);
+import { ref,onMounted} from "vue";
+const isMenuOpen = ref(false);
+const SigninPopUp = ref(false);
+const opensiginPopup=()=>{
+SigninPopUp.value =true
+}
+const closeSignupPopup = ()=>{
+  SigninPopUp.value =false
+}
 
 // Methods
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
-
 const step = ref(1);
 const formData = ref({
-  countryCode: '',
-  phoneNumber: '',
-  name: '',
+  countryCode: "",
+  phoneNumber: "",
+  name: "",
 });
 
 const handleNext = () => {
@@ -435,16 +605,52 @@ const handleNext = () => {
 };
 
 const handleSubmit = () => {
-  console.log('Form submitted:', formData.value);
+  console.log("Form submitted:", formData.value);
 
   step.value = 1; // Reset step for next time
 };
-  </script>
+const typewriterText = "Transform Your Business with NEOTAILY";
+    let index = 0;
+
+    const typeEffect = () => {
+      const element = document.getElementById("typewriter");
+
+      // Reset the text if it's the first call
+      if (index === 0) element.innerHTML = "";
+
+      // Append characters one by one
+      if (index < typewriterText.length) {
+        element.innerHTML += typewriterText.charAt(index);
+        index++;
+        setTimeout(typeEffect, 100); // Continue typing with delay
+      } else {
+        // Reset index and restart the typing effect after a pause
+        setTimeout(() => {
+          index = 0;
+          typeEffect();
+        }, 2000); // Pause for 2 seconds before restarting
+      }
+    };
+
+    const showofferpopup = ()=>{
+  setTimeout(() => {
+    isVisibleoffer.value = true
+  }, 10000);
+}
+   
+    onMounted(() => {
+      typeEffect();
+      showofferpopup()
+
+    });
+
+   
+</script>
 <style>
 /* General Container */
-.mainconatainer{
-    background: black;
-    color: white;
+.mainconatainer {
+  background: black;
+  color: white;
 }
 
 .container {
@@ -452,9 +658,6 @@ const handleSubmit = () => {
   margin: 0 auto;
   padding: 0 15px;
 }
-
-
-
 
 .testimonials-section {
   padding: 5rem 0;
@@ -543,7 +746,11 @@ const handleSubmit = () => {
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom right, rgba(78, 0, 128, 0.2), rgba(0, 0, 0, 1));
+  background: linear-gradient(
+    to bottom right,
+    rgba(78, 0, 128, 0.2),
+    rgba(0, 0, 0, 1)
+  );
   z-index: 0;
 }
 
@@ -620,7 +827,6 @@ const handleSubmit = () => {
 section {
   padding-top: 80px;
   padding-bottom: 80px;
- 
 }
 
 #features {
@@ -629,7 +835,6 @@ section {
 
 #pricing {
   background-color: rgb(1, 1, 1);
-  
 }
 
 .section-steps {
@@ -659,13 +864,13 @@ section {
 }
 
 /* Grid Styles */
-.features-grid, .steps-grid, .pricing-grid {
+.features-grid,
+.steps-grid,
+.pricing-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
 }
-
-
 
 .footer {
   background-color: #000;
@@ -741,8 +946,6 @@ ul li a:hover {
   text-align: center;
   margin-top: 20px;
 }
-
-
 
 .footer {
   background-color: #000;
@@ -839,28 +1042,17 @@ ul li a:hover {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media(min-width: 768px) {
-  .features-grid, .steps-grid, .pricing-grid {
+@media (min-width: 768px) {
+  .features-grid,
+  .steps-grid,
+  .pricing-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media(min-width: 1024px) {
-  .features-grid, .steps-grid {
+@media (min-width: 1024px) {
+  .features-grid,
+  .steps-grid {
     grid-template-columns: repeat(4, 1fr);
   }
   .pricing-grid {
@@ -1012,13 +1204,6 @@ ul li a:hover {
   background-color: #6b46c1;
 }
 
-
-
-
-
-
-
-
 .navbar {
   position: fixed;
   width: 100%;
@@ -1054,6 +1239,8 @@ ul li a:hover {
 .desktop-nav {
   display: flex;
   gap: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-link {
@@ -1134,8 +1321,6 @@ ul li a:hover {
     gap: 15px;
   }
 }
-
-
 
 .dialog-overlay {
   position: fixed;
@@ -1227,23 +1412,147 @@ ul li a:hover {
   background-color: #7a3cfa;
 }
 
-
-
 @media screen and (max-width: 768px) {
- /* .hero{
+  /* .hero{
     margin-top: 4.5rem;
     margin-bottom: 1rem;
  } */
- .section-features{
+  .section-features {
     margin-top: 4.5rem;
- }
-section{
+  }
+  section {
     padding-top: 0px;
-}
-.hero{
+  }
+  .hero {
     margin-top: 4.5rem;
     margin-bottom: 1rem;
- }
+  }
+}
+.mobile-menu-btn,
+.mobile-nav {
+  display: none;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  position: relative;
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #a855f7;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.close-btn:hover {
+  background: rgba(168, 85, 247, 0.1);
+  transform: rotate(90deg);
+}
+
+h2 {
+  color: #a855f7;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.input-group {
+  width: 100%;
+}
+
+.phone-group {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.country-code {
+  width: 30%;
+}
+
+.phone-input {
+  flex: 1;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #a855f7;
+  font-size: 0.9rem;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #4b5563;
+  border-radius: 8px;
+  background: #2d2d2d;
+  color: white;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #a855f7;
+}
+
+.signin-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #a855f7 0%, #7928ca 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin-top: 0.5rem;
+}
+
+.signin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
 }
 
 
@@ -1251,4 +1560,174 @@ section{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  position: relative;
+  background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+  padding: 2.5rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 8px 32px rgba(168, 85, 247, 0.2);
+  border: 1px solid rgba(168, 85, 247, 0.1);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #a855f7;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.close-btn:hover {
+  background: rgba(168, 85, 247, 0.1);
+  transform: rotate(90deg);
+}
+
+.promo-content {
+  text-align: center;
+}
+
+h2 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #a855f7, #7928ca);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.offer-badges {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: rgba(168, 85, 247, 0.1);
+  color: #a855f7;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.badge.highlight {
+  background: #a855f7;
+  color: white;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem;
+  background: rgba(168, 85, 247, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(168, 85, 247, 0.1);
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+}
+
+.feature-item p {
+  color: #e5e7eb;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.limited-offer {
+  color: #a855f7;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+#typewriter {
+  display: inline-block;
+  border-right: 2px solid white; /* Cursor effect */
+  padding-right: 5px;
+  animation: blink 0.7s step-end infinite;
+}
+
+/* Blinking cursor effect */
+@keyframes blink {
+  from {
+    border-color: white;
+  }
+  to {
+    border-color: transparent;
+  }
+}
 </style>
