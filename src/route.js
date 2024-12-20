@@ -14,7 +14,7 @@ import AddEmploye from "./components/AddEmploye.vue";
 import SeleryManagment from "./components/SeleryManagment.vue";
 import SeleryRecord from "./components/SeleryRecord.vue";
 import ShowDepartments from "./components/ShowDepartments.vue";
-import HomePage from "./components/HomePage.vue";
+// import HomePage from "./components/HomePage.vue";
 import MandiPurchaseDetail from "./components/MandiPurchaseDetail.vue";
 import BrockerpurchaseDetail from "./components/BrockerpurchaseDetail.vue";
 import DirectPurchaseDetail from "./components/DirectPurchaseDetail.vue";
@@ -30,62 +30,62 @@ const routes = [
     path: "/Mandi-purchase-form",
     name: "MandiPurchase-form",
     component: MandiPurchaseForm,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: "/broker-purchase-Form",
     name: "BrockerPurchase",
     component: BrockerPurchaseForm,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: "/direct-purchase-Form",
     name: "DirectPurchase",
     component: DirectPurchaseForm,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: "/Employee-Attendance",
     name: "EmployeeAttendande",
     component: EmployeeAttendance,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: "/Sell-product-Form",
     name: "SellProductForm",
     component: Sellproduct,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   {
     path: "/Cotton-Cake-khatabook",
     name: "cottoncakekhatabook",
     component: CottonCakekhataBook,
-   meta: { requiresAuth: true },
+  //  meta: { requiresAuth: true },
   },
   {
     path: "/Mustard-Oil-khatabook",
     name: "Mustardkhatabook",
     component: MustardOilKhataBook,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   {
     path: "/Row-of-cutton-khatabook",
     name: "RowOfCuttonKhataBook",
     component: RowOfCuttonKhataBokk,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   {
     path: "/Row-Of-MustardOil-khatabook",
     name: "RowOfMustardOilKhataBook",
     component: RowOfMustardOildKhataBook,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: "/customer-history/:id/:type",
     name: "CustomerHistorydetails",
     component: CustomerKhataDetails,
     props: true,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   {
     path: "/Add-Employee",
@@ -97,7 +97,7 @@ const routes = [
     path: "/Selery-Managment",
     name: "Selerymanagment",
     component:SeleryManagment ,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   {
     path: "/Departments",
@@ -109,51 +109,51 @@ const routes = [
     path: "/Selery-Record/:id",
     name: "SeleryRecord",
     component:SeleryRecord,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: "/",
-    name: "HomePage",
-    component:HomePage,
-    meta: { requiresAuth: true },
+    name: "Landing-page",
+    component:LandingPage,
+    // meta: { requiresAuth: true },
   },
   {
     path: "/Mandi-Purchase-Detail",
     name: "Mandi-purchase-Detail",
     component:MandiPurchaseDetail,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   {
     path: "/Brocker-Purchase-Detail",
     name: "Brocker-purchase-Detail",
     component:BrockerpurchaseDetail,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: "/Driect-Purchase-Detail",
     name: "Driect-purchase-Detail",
     component:DirectPurchaseDetail,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   {
     path: "/Suspance-form",
     name: "Suspance-form",
     component:SuspanceForm,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
 
   {
     path: "/Suspance-History",
     name: "Suspance-History",
     component:SuspanceHistery,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   {
     path: "/OrderBill",
     name: "Bill",
     component: OrderBill,
     props: true,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   
   {
@@ -166,14 +166,14 @@ const routes = [
     path: "/Admin",  
     name: "Admin",
     component: AdminPannel,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
-  {
-    path: "/Landing-Page",  
-    name: "Landing-Page",
-    component: LandingPage,
+  // {
+  //   path: "/Landing-Page",  
+  //   name: "Landing-Page",
+  //   component: LandingPage,
   
-  },
+  // },
 
 ];
 

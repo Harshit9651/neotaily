@@ -161,7 +161,7 @@ const navigateToRoute = (path, name) => {
   });
 };
 const redricttoAdmin = ()=>{
-  router.push('/Admin')
+  router.push('/Landing-Page')
 }
 
 const isMenuOpen = ref(false);

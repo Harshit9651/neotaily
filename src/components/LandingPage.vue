@@ -25,7 +25,7 @@
 
         <!-- Mobile Menu Button -->
         <div class="mobile-menu-btn" @click="toggleMenu">
-          <span>{{ isMenuOpen ? 'Close' : 'Menu' }}</span>
+            <span>{{ isMenuOpen ? 'Close' : 'Menu' }}</span>
         </div>
       </div>
 
@@ -196,7 +196,60 @@
 
 
 
+  <div v-if="open" class="dialog-overlay">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <h2 class="dialog-title">{{ step === 1 ? 'Enter Your Phone Number' : 'Complete Your Profile' }}</h2>
+      </div>
 
+      <div class="form-content">
+        <div v-if="step === 1">
+          <div class="form-group">
+            <div class="select-group">
+              <select v-model="formData.countryCode" class="select">
+                <option value="">Code</option>
+                <option value="+1">+1 (US)</option>
+                <option value="+44">+44 (UK)</option>
+                <option value="+91">+91 (IN)</option>
+                <!-- Add more country codes as needed -->
+              </select>
+            </div>
+            <input
+              type="tel"
+              placeholder="Phone number"
+              v-model="formData.phoneNumber"
+              class="input"
+            />
+          </div>
+          <button
+            class="button"
+            @click="handleNext"
+            :disabled="!formData.countryCode || !formData.phoneNumber"
+          >
+            Next
+          </button>
+        </div>
+
+        <div v-else>
+          <div class="form-group">
+            <input
+              type="text"
+              placeholder="Your name"
+              v-model="formData.name"
+              class="input"
+            />
+          </div>
+          <button
+            class="button"
+            @click="handleSubmit"
+            :disabled="!formData.name"
+          >
+            Complete Sign Up
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -208,7 +261,7 @@
       <div class="grid">
         <!-- Company Info -->
         <div>
-          <h3 class="logo">SoftwareX</h3>
+          <h3 class="logo">NEOTAILY</h3>
           <p class="description">Transforming businesses with powerful software solutions.</p>
           <div class="social-icons">
             <a href="#" class="icon">Facebook</a>
@@ -254,7 +307,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; {{ currentYear }} SoftwareX. All rights reserved.</p>
+        <p>&copy; {{ currentYear }} NEOTAILY. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -350,8 +403,42 @@
       content: "Outstanding support team and feature-rich platform. It's everything we needed and more.",
       rating: 5,
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop"
-    }
+    },
+    {
+      name: "Sarah Johnson",
+      role: "CEO at TechCorp",
+      content: "This software has completely transformed how we operate. The productivity gains have been remarkable.",
+      rating: 4,
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
+    },
   ];
+
+
+  import { ref } from 'vue';
+  const isMenuOpen = ref(false);
+
+// Methods
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
+
+
+const step = ref(1);
+const formData = ref({
+  countryCode: '',
+  phoneNumber: '',
+  name: '',
+});
+
+const handleNext = () => {
+  if (step.value < 2) step.value++;
+};
+
+const handleSubmit = () => {
+  console.log('Form submitted:', formData.value);
+
+  step.value = 1; // Reset step for next time
+};
   </script>
 <style>
 /* General Container */
@@ -657,6 +744,115 @@ ul li a:hover {
 
 
 
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 40px 20px;
+  border-top: 1px solid rgba(128, 0, 128, 0.2);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns for larger screens */
+  gap: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr; /* 2 columns for tablets */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr; /* 1 column for mobile phones */
+    gap: 20px; /* Smaller gap for mobile */
+  }
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(to right, #9b4dca, #9a1de0);
+  background-clip: text;
+  color: transparent;
+}
+
+.description {
+  color: #ccc;
+}
+
+.social-icons {
+  display: flex;
+  flex-wrap: wrap; /* Ensures icons wrap in smaller spaces */
+  gap: 10px;
+}
+
+.icon {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.icon:hover {
+  color: #9b4dca;
+}
+
+.heading {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+ul li a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  color: #9b4dca;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 480px) {
+  .footer-bottom {
+    font-size: 12px; /* Adjust text size for mobile */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media(min-width: 768px) {
   .features-grid, .steps-grid, .pricing-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -887,34 +1083,168 @@ ul li a:hover {
   color: white;
 }
 
-.mobile-menu-btn {
+/* Ensure .mobile-nav visibility and layout for mobile screens */
+.mobile-nav {
+  display: none; /* Hide by default */
+  background-color: rgba(22, 21, 21, 0.9);
+  padding: 20px;
+  position: absolute;
+  top: 70px; /* Adjust based on navbar height */
+  width: 100%;
+  left: 0;
+  z-index: 40;
+}
+
+.mobile-nav a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.mobile-nav a:hover {
+  color: #9b4dca;
+}
+
+.mobile-nav .btn {
+  margin-top: 15px;
   display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Show .mobile-menu-btn only on small screens */
+.mobile-menu-btn {
+  display: flex;
+  align-items: center;
   cursor: pointer;
   color: #ccc;
   font-size: 18px;
 }
 
-.mobile-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-@media screen and (min-width: 768px) {
+/* Media Query for Mobile Screens */
+@media screen and (max-width: 768px) {
   .desktop-nav {
-    display: flex;
-  }
-
-  .mobile-menu-btn {
     display: none;
   }
 
   .mobile-nav {
-    display: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
 }
 
 
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.dialog-content {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  max-width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dialog-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.dialog-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.select-group {
+  flex-shrink: 0;
+}
+
+.select {
+  width: 120px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+}
+
+.input {
+  flex-grow: 1;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+}
+
+.button {
+  background-color: #8a4fff;
+  color: #fff;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #7a3cfa;
+}
+
+
+
+@media screen and (max-width: 768px) {
+ /* .hero{
+    margin-top: 4.5rem;
+    margin-bottom: 1rem;
+ } */
+ .section-features{
+    margin-top: 4.5rem;
+ }
+section{
+    padding-top: 0px;
+}
+.hero{
+    margin-top: 4.5rem;
+    margin-bottom: 1rem;
+ }
+}
 
 
 
