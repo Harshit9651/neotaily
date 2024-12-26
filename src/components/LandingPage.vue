@@ -240,14 +240,14 @@
           <div>
             <h3 class="logo">NEOTAILY</h3>
             <p class="description">
-              Transforming businesses with powerful software solutions.
+
             </p>
             <div class="social-icons">
-              <a href="#" class="icon">Facebook</a>
+              <!-- <a href="#" class="icon">Facebook</a>
               <a href="#" class="icon">Twitter</a>
               <a href="#" class="icon">Instagram</a>
               <a href="#" class="icon">LinkedIn</a>
-              <a href="#" class="icon">GitHub</a>
+              <a href="#" class="icon">GitHub</a> -->
             </div>
           </div>
 

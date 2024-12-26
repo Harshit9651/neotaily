@@ -14,7 +14,7 @@ import AddEmploye from "./components/AddEmploye.vue";
 import SeleryManagment from "./components/SeleryManagment.vue";
 import SeleryRecord from "./components/SeleryRecord.vue";
 import ShowDepartments from "./components/ShowDepartments.vue";
-// import HomePage from "./components/HomePage.vue";
+import HomePage from "./components/HomePage.vue";
 import MandiPurchaseDetail from "./components/MandiPurchaseDetail.vue";
 import BrockerpurchaseDetail from "./components/BrockerpurchaseDetail.vue";
 import DirectPurchaseDetail from "./components/DirectPurchaseDetail.vue";
@@ -24,6 +24,7 @@ import OrderBill from "./components/OrderBill.vue";
 import LoginPage from "./components/LoginPage.vue"
 import AdminPannel from "./components/AdminPannel.vue";
 import LandingPage from "./components/LandingPage.vue";
+import TestingPage from "./components/TestingPage.vue";
 
 const routes = [
   {
@@ -91,7 +92,7 @@ const routes = [
     path: "/Add-Employee",
     name: "addEmploye",
     component: AddEmploye,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   {
     path: "/Selery-Managment",
@@ -103,7 +104,7 @@ const routes = [
     path: "/Departments",
     name: "Departments",
     component:ShowDepartments,
-     meta: { requiresAuth: true },
+    //  meta: { requiresAuth: true },
   },
   {
     path: "/Selery-Record/:id",
@@ -113,8 +114,8 @@ const routes = [
   },
   {
     path: "/",
-    name: "Landing-page",
-    component:LandingPage,
+    name: "Home_page",
+    component:HomePage,
     // meta: { requiresAuth: true },
   },
   {
@@ -168,12 +169,19 @@ const routes = [
     component: AdminPannel,
     // meta: { requiresAuth: true },
   },
-  // {
-  //   path: "/Landing-Page",  
-  //   name: "Landing-Page",
-  //   component: LandingPage,
+  {
+    path: "/Landing-Page",  
+    name: "Landing-Page",
+    component: LandingPage,
   
-  // },
+  },
+
+  {
+    path: "/test",
+    name: "test-form",
+    component: TestingPage,
+    // meta: { requiresAuth: true },
+  },
 
 ];
 

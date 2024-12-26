@@ -1,157 +1,210 @@
 <template>
-  <div>
-    <nav class="navbar">
-      <div class="navbar__logo">Shri Vinayk</div>
-      <ul
-        class="navbar__links"
-        :class="{ 'navbar__links--active': isMenuOpen }"
-      >
-        <!-- <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li> -->
-      </ul>
-      <button @click="redricttoAdmin()" class="navbar__signup">Factory Reset</button>
-      <div class="navbar__toggle" @click="toggleMenu">
-        <span :class="{ 'navbar__toggle--open': isMenuOpen }"></span>
-        <span :class="{ 'navbar__toggle--open': isMenuOpen }"></span>
-        <span :class="{ 'navbar__toggle--open': isMenuOpen }"></span>
-
-        <div v-if="isMenuOpen">toggleMenu</div>
-      </div>
-    </nav>
-    <div class="main-homepage">
-      <div class="main-page">
-        <aside class="sidebar">
-          <ul class="sidebar__menu">
-            <!-- Sidebar Menu -->
-            <li
-              class="sidebar__item cursor"
-              v-for="(label, key) in sidebarItems"
-              :key="key"
-
+<div class="main-template">
+  <nav class="navbar">
+    <div class="navbar__logo">NEOTAILY</div>
+    <ul class="navbar__links" :class="{ 'navbar__links--active': isMenuOpen }">
+    </ul>
+    <button @click="redricttoAdmin()" class="navbar__signup">Factory Reset</button>
+    <div class="navbar__toggle" @click="toggleMenu">
+      <span :class="{ 'navbar__toggle--open': isMenuOpen }"></span>
+      <span :class="{ 'navbar__toggle--open': isMenuOpen }"></span>
+      <span :class="{ 'navbar__toggle--open': isMenuOpen }"></span>
+      <div v-if="isMenuOpen">toggleMenu</div>
+    </div>
+  </nav>
+  <div class="main-homepage">
+    <div class="main-page">
+      <div class="sidebar">
+        <div class="menu">
+          <div v-for="item in menuItems" :key="item.name" class="menu-item">
+            <button
+              @click="toggleDropdown(item.name)"
+              class="menu-button"
+              :class="{ active: activeDropdown === item.name }"
             >
-              <div class="sidebar__link" @click="toggleDropdown(key)">
-                {{ label.title }}
-                <span :class="{ 'arrow--down': dropdowns[key] }">▼</span>
+              <div class="menu-button-content">
+                <component :is="item.icon" class="menu-icon" />
+                <span>{{ item.name }}</span>
               </div>
-              <ul v-show="dropdowns[key]" class="sidebar__dropdown">
-                <li v-for="(subItem, subKey) in label.subItems" :key="subKey">
-                  <template v-if="subItem.hasDropdown">
-                    <div
-                      class="sidebar__link"
-                      @click.stop="toggleDropdown(subItem.key)"
-                    >
-                      <!-- <a
-                   
-                       @click.prevent="navigateToRoute(subItem.name)"
-                      >
-                        {{ subItem.name }}
-                      </a> -->
-                      <a
-                @click.prevent="navigateToRoute(subItem.link, subItem.name)"
+              <svg
+                class="dropdown-arrow"
+                :class="{ rotated: activeDropdown === item.name }"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
               >
+                <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div
+              v-if="activeDropdown === item.name"
+              class="dropdown-menu"
+            >
+              <a
+                v-for="subItem in item.items"
+                :key="subItem.name"
+                @click.prevent="navigateToRoute(subItem.path, subItem.name)"
+                href="#"
+                class="dropdown-item"
+              >
+                <component :is="subItem.icon" class="submenu-icon" />
                 {{ subItem.name }}
               </a>
-                      <span :class="{ 'arrow--down': dropdowns[subItem.key] }"
-                        >▼</span
-                      >
-                    </div>
-                    <ul
-                      v-show="dropdowns[subItem.key]"
-                      class="sidebar__dropdown sidebar__dropdown--child"
-                    >
-                      <li
-                        v-for="(childItem, childKey) in subItem.childItems"
-                        :key="childKey"
-                      >
-                        <!-- <a :href="childItem.link"     @click.prevent="navigateToRoute(childItem.name)">{{ childItem.name }}</a> -->
-                        <a
-                    @click.prevent="navigateToRoute(childItem.link, childItem.name)"
-                  >
-                    {{ childItem.name }}
-                  </a>
-                    </li>
-                    </ul>
-                  </template>
-                  <template v-else>
-                    <!-- <a  @click.prevent="navigateToRoute(subItem.name)" :href="subItem.link">{{ subItem.name }} </a>
-                  -->
-                  <a
-                @click.prevent="navigateToRoute(subItem.link, subItem.name)"
-              >
-                {{ subItem.name }}
-              </a>
-                  </template>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
-        <main class="content-area">
-          <div class="main-content">
-            <div class="img-part">
-              <div class="img-render">
-                <div class="center">
-                  <img
-                    class="image grandfather"
-                    src="../assets/grandfather.jpg"
-                    alt="Grandfather"
-                  />
-                
-                </div>
-                <div class="center">
-                  <img
-                    class="image father"
-                    src="../assets/father.jpg"
-                    alt="Father"
-                  />
-                
-                </div>
-                <div class="center">
-                  <img class="image son" src="../assets/son.jpg" alt="Son" />
-                 
-                </div>
-              </div>
             </div>
-            <div class="main-about-content">
-              Lorem ipsum dolor sit amet. Est enim ipsam est quod earum qui unde
-              obcaecati ad adipisci quam. Est ratione voluptate aut odit dolores
-              qui nisi earum. Est tempora fuga eum eligendi magni ut dolores
-              quidem nam dolores dolores sit nobis voluptatem. Ut nobis
-              necessitatibus aut velit rerum est molestiae molestiae ea
-              assumenda molestias eum nihil recusandae aut veritatis recusandae.
-              Est vero cumque et alias enim est ratione adipisci ut aperiam
-              tempora et quia alias eos doloremque iste est commodi dolores! Ea
-              placeat odit ex deserunt repellendus id voluptas beatae aut
-              recusandae dolore ad saepe corporis qui explicabo error aut
-              possimus architecto. At accusamus molestiae 33 rerum itaque nam
-              quidem voluptas sed voluptas ipsam cum aperiam dolorum. Aut iure
-              distinctio non odio nihil At tempora rerum qui architecto tempore
-              est rerum illo.
-            </div>
-           
           </div>
-        </main>
+        </div>
       </div>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="content-container">
+          <h1 class="heading-main-content">Welcome to Necotaily Software</h1>
+          
+          <section class="intro-section">
+            <h2 class="intero">Streamline Your Business Operations</h2>
+            <p>
+              Necotaily Software provides comprehensive solutions for managing your business efficiently.
+              From employee management to financial analysis, we've got you covered.
+            </p>
+          </section>
+
+          <div class="features-grid">
+            <div class="feature-card">
+              <h3>Key Features</h3>
+              <ul>
+                <li>Complete Employee Management</li>
+                <li>Purchase Tracking System</li>
+                <li>Digital Khata Management</li>
+                <li>Advanced Data Analysis</li>
+                <li>Comprehensive Reporting</li>
+              </ul>
+            </div>
+
+            <div class="feature-card">
+              <h3>Benefits</h3>
+              <ul>
+                <li>Increased Productivity</li>
+                <li>Better Financial Control</li>
+                <li>Real-time Data Access</li>
+                <li>Simplified Operations</li>
+                <li>Enhanced Decision Making</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   </div>
+</div>
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
+import {
+  UserGroupIcon,
+  ShoppingCartIcon,
+  DocumentTextIcon,
+  ChartBarIcon,
+  DocumentDuplicateIcon,
+  UserPlusIcon,
+  UserIcon,
+  ClockIcon,
+  PlusCircleIcon,
+  ClipboardDocumentListIcon,
+  // ArrowUpTrayIcon,
+  // ArrowDownTrayIcon,
+  // ArchiveBoxIcon,
+  // BuildingStorefrontIcon,
+  // BeakerIcon,
+  BookOpenIcon,
+  // ChartPieIcon,
+  // ChartBarSquareIcon,
+  BanknotesIcon
+} from '@heroicons/vue/24/outline';
 
 const router = useRouter();
+const isMenuOpen = ref(false);
+const activeDropdown = ref("");
 
-// const navigateToRoute = (name) => {
-//   console.log("Navigating to:", name);
- 
-//   router.push({
-//     path: "/Employee-Attendance", 
-//     query: { name },
-//   });
-// };
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
+
+const menuItems = [
+  {
+    name: "Attendance",
+    icon: ClockIcon,
+    items: [
+      { name: "Jinning Mistri", icon: UserIcon, path: "/Employee-Attendance" },
+      { name: "Saplar", icon: UserIcon, path: "/Employee-Attendance" },
+      { name: "Jharkhand (Labor)", icon: UserIcon, path: "/Employee-Attendance" },
+      { name: "Bihari Labor", icon: UserIcon, path: "/Employee-Attendance" },
+      { name: "Packaging", icon: UserIcon, path: "/Employee-Attendance" },
+      { name: "Munim", icon: UserIcon, path: "/Employee-Attendance" },
+      { name: "Sr Manager", icon: UserIcon, path: "/Employee-Attendance" },
+      { name: "Market Manager", icon: UserIcon, path: "/Employee-Attendance" },
+      { name: "Driver", icon: UserIcon, path: "/Employee-Attendance" },
+    ],
+  },
+  {
+    name: "Employee",
+    icon: UserGroupIcon,
+    items: [
+      { name: "Add Employees", icon: UserPlusIcon, path: "/Add-Employee" },
+      { name: "Employee Payroll", icon: BanknotesIcon, path: "/selery-Managment" },
+      { name: "Employee Payroll History", icon: DocumentTextIcon, path: "/Departments" },
+    ],
+  },
+  {
+    name: "Purchases",
+    icon: ShoppingCartIcon,
+    items: [
+      { name: "+ Mandi Purchase Data", icon: PlusCircleIcon, path: "/Mandi-purchase-form" },
+      { name: "+ Direct Purchase Data", icon: PlusCircleIcon, path: "/direct-purchase-Form" },
+      { name: "+ Brocker Purchase Data", icon: PlusCircleIcon, path: "/broker-purchase-Form" },
+    ],
+  },
+  {
+    name: "Purchase Data",
+    icon: DocumentTextIcon,
+    items: [
+      { name: "Mandi Purchase", icon: ClipboardDocumentListIcon, path: "/Mandi-Purchase-Detail" },
+      { name: "Direct Purchase", icon: ClipboardDocumentListIcon, path: "/Driect-Purchase-Detail" },
+      { name: "Brocker Purchase", icon: ClipboardDocumentListIcon, path: "/Brocker-Purchase-Detail" },
+    ],
+  },
+  {
+    name: "Khata",
+    icon: DocumentDuplicateIcon,
+    items: [
+      { name: "Musterd-Oil KhataBook", icon: BookOpenIcon, path: "/Mustard-Oil-khatabook" },
+      { name: "Cutton-Cake KhataBook", icon: BookOpenIcon, path: "/Cotton-Cake-khatabook" },
+      { name: "Row of MusterdOil KhataBook", icon: BookOpenIcon, path: "/Row-Of-MustardOil-khatabook" },
+      { name: "Row Of CuttonCake KhataBook", icon: BookOpenIcon, path: "/Row-of-cutton-khatabook" },
+    ],
+  },
+  {
+    name: "Suspance",
+    icon: ChartBarIcon,
+    items: [
+      { name: "Add Suspance", icon: PlusCircleIcon, path: "/Suspance-form" },
+      { name: "Suspance History", icon: DocumentTextIcon, path: "/Suspance-History" },
+    ],
+  },
+  {
+    name: "Sell Product",
+    icon: ShoppingCartIcon,
+    items: [
+      { name: "Generate Bill", icon: DocumentTextIcon, path: "/Sell-product-Form" },
+      { name: "See Bills", icon: DocumentTextIcon, path: "/Suspance-History" },
+    ],
+  },
+];
+
+const toggleDropdown = (name) => {
+  activeDropdown.value = activeDropdown.value === name ? "" : name;
+};
 
 const navigateToRoute = (path, name) => {
   console.log("Navigating to:", path, "with name:", name);
@@ -160,104 +213,11 @@ const navigateToRoute = (path, name) => {
     query: { name },
   });
 };
-const redricttoAdmin = ()=>{
-  router.push('/Landing-Page')
-}
 
-const isMenuOpen = ref(false);
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
-
-const dropdowns = ref({
-  attendence: false,
-  employee: false,
-  purchases: false,
-  khata: false,
-  sales: false,
-  anlysis: false,
-  salary: false, // Added for the "Basic Salary" dropdown
-});
-
-const sidebarItems = {
-  attendence: {
-    title: "Attendance",
-    subItems: [
-      { name: "Jinning Mistri", link: "/Employee-Attendance" },
-      { name: "Saplar",link: "/Employee-Attendance" },
-      { name: "Jharkhand (Labor)",link: "/Employee-Attendance" },
-      { name: "Bihari Labor",link: "/Employee-Attendance" },
-      { name: "Packaging",link: "/Employee-Attendance" },
-      { name: "Munim",link: "/Employee-Attendance" },
-      { name: "Sr Manager",link: "/Employee-Attendance" },
-      { name: "Market Manager",link: "/Employee-Attendance" },
-      { name: "Driver",link: "/Employee-Attendance" },
-    ],
-  },
-  employee: {
-    title: "Employee",
-    subItems: [
-      { name: "Add Employees", link: "/Add-Employee" },
-      { name: "Employee Payroll ", link: "/selery-Managment" },
-      { name: "Employee Payroll History", link: "/Departments" },
-
-
-    ],
-  },
-  purchases: {
-    title: "Purchases",
-    subItems: [
-      { name: "+ Mandi Purchase Data", link: "/Mandi-purchase-form" },
-      { name: "+ Direct Purchase Data", link: "/direct-purchase-Form" },
-      { name: "+ Brocker Purchase Data", link: "/broker-purchase-Form" },
-    ],
-  },
-  //done
-  sales: {
-    title: "Purchase Data",
-    subItems: [
-    { name: " Mandi Purchase", link: "/Mandi-Purchase-Detail" },
-      { name: "Direct Purchase ", link: "/Driect-Purchase-Detail" },
-      { name: "Brocker Purchase ", link: "/Brocker-Purchase-Detail" },
-    ],
-  }, 
-  //done
-  khata: {
-    title: "Khata",
-    subItems: [
-      { name: "Musterd-Oil KhataBook", link: "/Mustard-Oil-khatabook" },
-      { name: "Cutton-Cake KhataBook", link: "/Cotton-Cake-khatabook" },
-      { name: "Row of MusterdOil KhataBook", link: "/Row-Of-MustardOil-khatabook" },
-      { name: "Row Of CuttonCake KhataBook", link: "/Row-of-cutton-khatabook" },
-    ],
-  },
-  //we have to make suspance page 
-  anlysis: {
-    title: "Suspance",
-    subItems: [
-      { name: "Add Suspance", link: "/Suspance-form" },
-      { name: "Suspance History", link: "/Suspance-History" },
-     
-     
-    ],
-  },
-  sell_product: {
-    title: "Sell Product",
-    subItems: [
-      { name: "Generate Bill", link: "/Sell-product-Form" },
-      { name: "See Biils", link: "/Suspance-History" },
-     
-     
-    ],
-  },
-};
-
-const toggleDropdown = (dropdown) => {
-  dropdowns.value[dropdown] = !dropdowns.value[dropdown];
+const redricttoAdmin = () => {
+  router.push('/Admin');
 };
 </script>
-
 <style lang="scss" scoped>
 /* Variables */
 $navbar-bg-color: #1b1b1b;
@@ -269,24 +229,39 @@ $navbar-signup-hover-color: darken($navbar-signup-bg-color, 10%);
 $breakpoint: 768px;
 $font-family: "Inter";
 
+
+
+
+:root {
+  --primary-color: #8B5CF6;
+  --primary-dark: #6D28D9;
+  --secondary-color: #1F2937;
+  --secondary-dark: #111827;
+  --secondary-darkk: #1c2332;
+  
+  --text-light: #F3F4F6;
+  --text-gray: #9CA3AF;
+}
+
 .cursor{
   cursor: pointer;
 }
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: $navbar-bg-color;
+  background-color: #1c2332;
   // background-color: white;
-  color: $navbar-link-color;
+  color: var(--primary-dark);
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   font-family: $font-family;
 
   &__logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: $navbar-link-color;
+    color: var(--primary-dark);
   }
 
   &__links {
@@ -317,8 +292,8 @@ $font-family: "Inter";
   /* Sign Up Button */
   &__signup {
     padding: 0.5rem 1rem;
-    background-color: $navbar-signup-bg-color;
-    color: $navbar-bg-color;
+    background-color: var( --primary-dark);
+    color: white;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
@@ -326,7 +301,7 @@ $font-family: "Inter";
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: $navbar-signup-hover-color;
+      background-color: var(--primary-color);
     }
   }
 
@@ -361,6 +336,7 @@ $font-family: "Inter";
     }
   }
 }
+
 
 /* Responsive Styles */
 @media (max-width: $breakpoint) {
@@ -410,152 +386,315 @@ $font-family: "Inter";
     width: 100%;
   }
 
+  // .sidebar {
+  //   width: 300px;
+  //   // background-color: #1f2937;
+  //   background-color: var(--secondary-color);
+  //   color: #fff;
+  //   padding: 1rem;
+  //   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  //   overflow-y: auto;
+  //   margin-top: 1.5rem;
+  //   margin-left: 1.5rem;
+  //   border-radius: 10px;
+
+  //   .sidebar__menu {
+  //     list-style: none;
+  //     padding: 0;
+
+  //     .sidebar__item {
+  //       margin-bottom: 1rem;
+
+  //       .sidebar__link {
+  //         display: flex;
+  //         justify-content: space-between;
+  //         padding: 0.75rem;
+  //         cursor: pointer;
+  //         font-weight: 600;
+  //         font-size: 1rem;
+  //         // color: #fff;
+  //         color: var(--text-light);
+  //         border-radius: 4px;
+  //         transition: background 0.3s;
+
+  //         &:hover {
+  //           background-color: rgba(139, 92, 246, 0.1);
+           
+  //         }
+
+  //         .arrow--down {
+  //           transform: rotate(180deg);
+  //           transition: transform 0.3s;
+  //         }
+  //       }
+
+  //       .sidebar__dropdown {
+  //         margin-top: 0.5rem;
+  //         list-style: none;
+  //         padding-left: 1rem;
+
+  //         &.sidebar__dropdown--child {
+  //           padding-left: 1.5rem;
+  //           // background-color: #f5f5f5;
+  //           background-color: rgba(139, 92, 246, 0.1);
+  //           border-radius: 4px;
+  //         }
+
+  //         li {
+  //           padding: 0.5rem;
+  //           // background-color: #f5f5f5;
+  //           background-color: rgba(139, 92, 246, 0.1);
+  //           border-radius: 4px;
+
+  //           a {
+  //             color: #000;
+  //             text-decoration: none;
+  //             transition: color 0.2s;
+
+  //             &:hover {
+  //               // color: white;
+  //               background-color: rgba(139, 92, 246, 0.1);
+  //             }
+  //           }
+
+  //           &:hover {
+  //             // background-color: #10898d;
+  //             background-color: rgba(139, 92, 246, 0.1);
+  //             color: var(--text-light);
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
   .sidebar {
-    width: 300px;
-    // background-color: #1f2937;
-    background-color: #ffffff;
-    color: #fff;
-    padding: 1rem;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    margin-top: 1.5rem;
-    margin-left: 1.5rem;
-    border-radius: 10px;
+  width: 16rem;
+  background-color: var(--secondary-color);
+  padding: 1rem;
+  height: 100vh;
+  margin-top: 0px;
+}
 
-    .sidebar__menu {
-      list-style: none;
-      padding: 0;
+.menu-item {
+  margin-bottom: 0.5rem;
+}
+.heading-main-content{
+  font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+}
 
-      .sidebar__item {
-        margin-bottom: 1rem;
+.menu-button {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0.75rem;
+  color: var(--text-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
 
-        .sidebar__link {
-          display: flex;
-          justify-content: space-between;
-          padding: 0.75rem;
-          cursor: pointer;
-          font-weight: 600;
-          font-size: 1rem;
-          // color: #fff;
-          color: #000;
-          border-radius: 4px;
-          transition: background 0.3s;
+.menu-button:hover {
+  background-color: rgba(139, 92, 246, 0.1);
+}
 
-          &:hover {
-            background-color: #374151;
-            color: #ffff;
-          }
+.menu-button.active {
+  background-color: rgba(139, 92, 246, 0.1);
+}
 
-          .arrow--down {
-            transform: rotate(180deg);
-            transition: transform 0.3s;
-          }
-        }
+.menu-button-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
 
-        .sidebar__dropdown {
-          margin-top: 0.5rem;
-          list-style: none;
-          padding-left: 1rem;
+.menu-icon, .submenu-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--primary-color);
+}
 
-          &.sidebar__dropdown--child {
-            padding-left: 1.5rem;
-            background-color: #f5f5f5;
-            border-radius: 4px;
-          }
+.dropdown-arrow {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.2s;
+}
 
-          li {
-            padding: 0.5rem;
-            background-color: #f5f5f5;
-            border-radius: 4px;
+.dropdown-arrow.rotated {
+  transform: rotate(180deg);
+}
 
-            a {
-              color: #000;
-              text-decoration: none;
-              transition: color 0.2s;
+.dropdown-menu {
+  margin-top: 0.5rem;
+  padding-left: 3rem;
+}
 
-              &:hover {
-                color: white;
-              }
-            }
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-gray);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
 
-            &:hover {
-              background-color: #10898d;
-            }
-          }
-        }
-      }
-    }
-  }
+.dropdown-item:hover {
+  background-color: rgba(139, 92, 246, 0.1);
+  color: var(--text-light);
+}
 
+.main-content{
+  background-color: var(--secondary-dark)
+}
   .content-area {
     flex: 1;
     padding: 1.5rem;
 
-    .main-content {
-      display: flex;
-      // justify-content: center;
-      flex-direction: column;
-      align-items: center;
-      background: #ffffff;
+    // .main-content {
+    //   display: flex;
+    //   // justify-content: center;
+    //   flex-direction: column;
+    //   align-items: center;
+    //   background: #ffffff;
     
-      border-radius: 8px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      height: 97vh;
+    //   border-radius: 8px;
+    //   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    //   height: 97vh;
 
-      .img-part {
-        width: 100%;
+    //   .img-part {
+    //     width: 100%;
 
-        .img-render {
-          display: flex;
-          // gap: 5rem;
-          justify-content: space-around;
-          margin-top: 6px;
-          // background-color: #10898d;
+    //     .img-render {
+    //       display: flex;
+    //       // gap: 5rem;
+    //       justify-content: space-around;
+    //       margin-top: 6px;
+    //       // background-color: #10898d;
 
-          .center {
+    //       .center {
 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            width: fit-content;
+    //         display: flex;
+    //         flex-direction: column;
+    //         align-items: center;
+    //         gap: 2rem;
+    //         width: fit-content;
 
-            .image {
-              border-radius: 50%;
-              box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-              transition: transform 0.3s;
+    //         .image {
+    //           border-radius: 50%;
+    //           box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    //           transition: transform 0.3s;
 
-              &:hover {
-                transform: scale(1.05);
-              }
-            }
+    //           &:hover {
+    //             transform: scale(1.05);
+    //           }
+    //         }
 
-            .grandfather {
-              height: 200px;
-              width: 200px;
-              object-fit: cover;
-            }
+    //         .grandfather {
+    //           height: 200px;
+    //           width: 200px;
+    //           object-fit: cover;
+    //         }
 
-            .father {
-              height: 200px;
-              width: 200px;
-              object-fit: cover;
-            }
+    //         .father {
+    //           height: 200px;
+    //           width: 200px;
+    //           object-fit: cover;
+    //         }
 
-            .son {
-              height: 200px;
-              width: 200px;
-              object-fit: cover;
-            }
-          }
-        }
-      }
+    //         .son {
+    //           height: 200px;
+    //           width: 200px;
+    //           object-fit: cover;
+    //         }
+    //       }
+    //     }
+    //   }
 
-      .main-about-content {
-        margin-top: 18px;
-        padding: 20px;
-      }
-    }
+    //   .main-about-content {
+    //     margin-top: 18px;
+    //     padding: 20px;
+    //   }
+    // }
+    
+
+.content-container {
+  background-color: var(--secondary-color);
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.intro-section {
+  margin-bottom: 2rem;
+
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.intero{
+  color: white !important;
+}
+p {
+  color: var(--text-gray);
+  line-height: 1.6;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background-color: var(--secondary-dark);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.feature-card h3 {
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card ul {
+  list-style: none;
+}
+
+.feature-card li {
+  color: var(--text-gray);
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.feature-card li::before {
+  content: "•";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+}
+
+
   }
+}
+.intero{
+  color: white !important;
 }
 </style>
