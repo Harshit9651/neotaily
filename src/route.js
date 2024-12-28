@@ -24,7 +24,6 @@ import OrderBill from "./components/OrderBill.vue";
 import LoginPage from "./components/LoginPage.vue"
 import AdminPannel from "./components/AdminPannel.vue";
 import LandingPage from "./components/LandingPage.vue";
-import TestingPage from "./components/TestingPage.vue";
 
 const routes = [
   {
@@ -176,12 +175,7 @@ const routes = [
   
   },
 
-  {
-    path: "/test",
-    name: "test-form",
-    component: TestingPage,
-    // meta: { requiresAuth: true },
-  },
+  
 
 ];
 

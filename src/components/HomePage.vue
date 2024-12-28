@@ -232,6 +232,23 @@ $font-family: "Inter";
 
 
 
+// :root {
+//   --bg-primary: #0a0a0a;
+//   --bg-secondary: #141414;
+//   --bg-tertiary: #1f1f1f;
+//   --text-primary: #e6e6e6;
+//   --text-secondary: #a0a0a0;
+//   --primary-color: #2cbb5d;
+//   --primary-hover: #249d4d;
+//   --secondary-color: #2d2d2d;
+//   --border-color: #2d2d2d;
+//   --card-bg: #141414;
+//   --danger: #ff4d4f;
+//   --success: #2cbb5d;
+//   --warning: #ffc107;
+// }
+
+
 :root {
   --primary-color: #8B5CF6;
   --primary-dark: #6D28D9;
@@ -242,6 +259,9 @@ $font-family: "Inter";
   --text-light: #F3F4F6;
   --text-gray: #9CA3AF;
 }
+
+
+
 
 .cursor{
   cursor: pointer;
@@ -254,14 +274,14 @@ $font-family: "Inter";
   padding: 1rem 2rem;
   background-color: #1c2332;
   // background-color: white;
-  color: var(--primary-dark);
+  color:#6D28D9 ;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   font-family: $font-family;
 
   &__logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--primary-dark);
+    color: #6D28D9;
   }
 
   &__links {
@@ -292,7 +312,7 @@ $font-family: "Inter";
   /* Sign Up Button */
   &__signup {
     padding: 0.5rem 1rem;
-    background-color: var( --primary-dark);
+    background-color: #6D28D9;
     color: white;
     border: none;
     border-radius: 4px;
@@ -301,7 +321,7 @@ $font-family: "Inter";
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: var(--primary-color);
+      background-color: #6D28D9;
     }
   }
 
@@ -469,7 +489,7 @@ $font-family: "Inter";
   // }
   .sidebar {
   width: 16rem;
-  background-color: var(--secondary-color);
+  background-color:#1F2937;
   padding: 1rem;
   height: 100vh;
   margin-top: 0px;
@@ -481,7 +501,7 @@ $font-family: "Inter";
 .heading-main-content{
   font-size: 2.5rem;
     font-weight: bold;
-    color: var(--primary-dark);
+    color: #6D28D9;
 }
 
 .menu-button {
@@ -489,7 +509,7 @@ $font-family: "Inter";
   background: none;
   border: none;
   padding: 0.75rem;
-  color: var(--text-light);
+  color:#F3F4F6;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -515,7 +535,7 @@ $font-family: "Inter";
 .menu-icon, .submenu-icon {
   width: 1.25rem;
   height: 1.25rem;
-  color: var(--primary-color);
+  color: #8B5CF6;
 }
 
 .dropdown-arrow {
@@ -538,7 +558,7 @@ $font-family: "Inter";
   align-items: center;
   gap: 0.75rem;
   padding: 0.5rem 0.75rem;
-  color: var(--text-gray);
+  color: #9CA3AF;
   text-decoration: none;
   border-radius: 0.5rem;
   transition: background-color 0.2s;
@@ -546,11 +566,11 @@ $font-family: "Inter";
 
 .dropdown-item:hover {
   background-color: rgba(139, 92, 246, 0.1);
-  color: var(--text-light);
+  color: #F3F4F6;
 }
 
 .main-content{
-  background-color: var(--secondary-dark)
+  background-color: #111827
 }
   .content-area {
     flex: 1;

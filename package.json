@@ -22,6 +22,7 @@
     "core-js": "^3.8.3",
     "cropperjs": "^1.6.2",
     "lucide-vue-next": "^0.468.0",
+    "monaco-editor": "^0.52.2",
     "sass": "^1.80.4",
     "sass-loader": "^16.0.2",
     "vue": "^3.2.13",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@babel/plugin-transform-class-static-block": "^7.26.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
